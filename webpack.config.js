@@ -9,6 +9,10 @@ module.exports = {
     filename: 'bundle.js'
   },
 
+  resolve: {
+    fallback: { 'path': require.resolve('path-browserify') },
+ },
+
   devServer: {
     compress: true,
     port: 9999,
@@ -31,7 +35,7 @@ module.exports = {
 
   plugins: [
     new HtmlWebpackPlugin({
-      title: '리액트 기본 구조 공부',
+      title: '2.3 setup webpack & babel',
       template: 'index.html'
     })
   ]
