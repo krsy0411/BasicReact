@@ -1,4 +1,6 @@
-import { createDOM, createElement, render } from "../react";
+/* @jsx createElement */
+// 윗 주석은 babel compiler에 의해 React.createElement로 함수가 생성되지 않도록 설정하기 위함(jsx문법 사용시)
+import { createDOM, createElement, render } from "./react";
 
 // dom을 객체형태로 다 풀어서 만들어 놓은 형태
 const vdom = {
@@ -59,4 +61,24 @@ const vdom3 = <p>
   </ul>
 </p>
 
-render(vdom3, document.querySelector('#root'));
+// 함수 컴포넌트 사용한 vdom
+
+function Title(props) {
+  return <h1>{ props.children }</h1>;
+}
+
+function Item(props) {
+  return <li style={`color:${props.color}`}>{props.children}</li>
+}
+
+
+const vdom4 = <p>
+  <Title label="React">React 정말 잘 만들기</Title>
+  <ul>
+    <Item color="red">첫 번째 아이템</Item>
+    <Item color="green">두 번째 아이템</Item>
+    <Item color="blue">세 번째 아이템</Item>
+  </ul>
+</p>
+
+render(vdom4, document.querySelector('#root'));

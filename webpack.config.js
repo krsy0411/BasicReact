@@ -9,10 +9,6 @@ module.exports = {
     filename: 'bundle.js'
   },
 
-  resolve: {
-    fallback: { 'path': require.resolve('path-browserify') },
- },
-
   devServer: {
     compress: true,
     port: 9999,
