@@ -22,6 +22,9 @@ export function creatDOM(node) {
 }
 
 export function creatElement(tag, props, ...children) {
+  // babel transpiling을 이용하면 빈 객체 사용시 null로 반환하기 때문에 방어코드 작성
+  props = props || {};
+
   return { tag, props, children };
 }
 

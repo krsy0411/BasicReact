@@ -1,5 +1,6 @@
 import { createDOM, createElement, render } from "../react";
 
+// dom을 객체형태로 다 풀어서 만들어 놓은 형태
 const vdom = {
   tag: 'p',
   props: {},
@@ -48,6 +49,14 @@ const vdom2 = createElement('p', {},
     )
   );
 
-console.log(vdom2)
+// jsx문법을 이용한 virtual dom
+const vdom3 = <p>
+  <h1>React 만들기</h1>
+  <ul>
+    <li style = "color:red">첫 번째 아이템</li>
+    <li style = "color:blue">두 번째 아이템</li>
+    <li style = "color:green">세 번째 아이템</li>
+  </ul>
+</p>
 
-render(vdom, document.querySelector('#root'));
+render(vdom3, document.querySelector('#root'));
