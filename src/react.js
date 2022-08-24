@@ -1,3 +1,6 @@
+const hooks = [];
+const currentComponent = 0;
+
 
 // 클래스 컴포넌트
 export class Component {
@@ -36,6 +39,21 @@ function makeProps(props, children) {
     children: children.length === 1 ? children[0] : children,
   };
 }
+
+export function useState(initValue) {
+  let position = currentComponent - 1;
+
+  if (!hooks[position]) {
+    hooks[position] = initValue;
+  }
+
+  const modifier = nextValue => {
+    hooks[position] = nextValue;
+  };
+
+  return [ hooks[position], modifier ];
+}
+
 // 전개 연산자를 통해서 children은 배열 형태로 만들어준다
 export function createElement(tag, props, ...children) {
   // babel transpiling을 이용하면 빈 객체 사용시 null로 반환하기 때문에 방어코드 작성
@@ -64,14 +82,17 @@ export function createElement(tag, props, ...children) {
       // 클래스의 인스턴스 객체를 만들어 렌더링
       const instance = new tag(makeProps(props, children));
       return instance.render();
-    } else {
+    }
+
+      hooks[currentComponent] = null;
+      currentComponent++;
+
       // 함수 컴포넌트이면서 클래스 컴포넌트는 아닌 경우
       if (children.length > 0) {
         return tag(makeProps(props, children))
       } else {
         return tag(props);
       }
-    }
   } else {
     // 함수 or 클래스 컴포넌트도 아닌 경우
     return { tag, props, children };
