@@ -78,7 +78,17 @@ export function createElement(tag, props, ...children) {
   }
 }
 
-// 렌더링(UI를 만들어내는 함수)
-export function render(vdom, container) {
-  container.appendChild(createDOM(vdom));
-}
+// hook구현방식 = 이전dom과 업데이트할 dom 비교
+export const render = (function() {
+  let prevDom = null;
+
+  return function(vdom, container) {
+    if (prevDom === null) {
+      prevDom = vdom;
+    }
+
+    // diff
+
+    container.appendChild(createDOM(vdom));
+  }
+})();
